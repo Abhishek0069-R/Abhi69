@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Financial Literacy Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      padding: 2rem;
+    }
+    .quiz {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .question {
+      margin-bottom: 1.5rem;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    .answers label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz">
+    <h2>Financial Literacy Quiz</h2>
+    <form id="quizForm">
+      <!-- Questions will be inserted here by script -->
+    </form>
+    <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What is the first step in creating a personal budget?",
+        a: ["Estimate future expenses", "Record current income and expenses", "Open a savings account", "Apply for a credit card"],
+        correct: "B"
+      },
+      {
+        q: "If you earn $25 per hour and work 10.5 hours in a week, what is your total weekly income?",
+        a: ["$250.00", "$262.50", "$275.00", "$280.00"],
+        correct: "B"
+      },
+      {
+        q: "Which of the following is a fixed expense?",
+        a: ["Groceries", "Electricity bill", "Monthly rent", "Movie tickets"],
+        correct: "C"
+      },
+      {
+        q: "What does the 50/30/20 rule represent?",
+        a: ["50% spending, 30% savings, 20% debt", "50% savings, 30% wants, 20% needs", "50% needs, 30% wants, 20% savings", "50% debt, 30% investing, 20% income"],
+        correct: "C"
+      },
+      {
+        q: "If you save $100 every month for a year, how much will you have saved?",
+        a: ["$1,000", "$1,100", "$1,200", "$1,300"],
+        correct: "C"
+      },
+      {
+        q: "Which financial product offers the highest interest?",
+        a: ["Savings account", "Transaction account", "Term deposit", "Credit card"],
+        correct: "C"
+      },
+      {
+        q: "What is compound interest?",
+        a: ["Interest on savings only", "Interest on principal and interest earned", "Penalty from bank", "Credit card charge"],
+        correct: "B"
+      },
+      {
+        q: "Which is a disadvantage of a credit card?",
+        a: ["Builds credit", "Rewards", "Interest-free period", "High-interest debt if unpaid"],
+        correct: "D"
+      },
+      {
+        q: "Why do people buy insurance?",
+        a: ["To earn interest", "To protect from financial loss", "To increase credit score", "To reduce expenses"],
+        correct: "B"
+      },
+      {
+        q: "How much interest is earned on $1000 at 5% annual simple interest for 2 years?",
+        a: ["$50", "$100", "$150", "$200"],
+        correct: "B"
+      },
+      {
+        q: "What is an emergency fund for?",
+        a: ["Shopping", "Investment", "Unexpected expenses", "Vacations"],
+        correct: "C"
+      },
+      {
+        q: "Which is a variable expense?",
+        a: ["Rent", "Groceries", "Loan repayment", "Phone plan"],
+        correct: "B"
+      },
+      {
+        q: "Which of the following increases your credit score?",
+        a: ["Missing payments", "Paying bills on time", "Exceeding credit limit", "No bank account"],
+        correct: "B"
+      },
+      {
+        q: "If you spend $600 of your $1000 income on needs, how much is left for wants and savings?",
+        a: ["$200", "$300", "$400", "$600"],
+        correct: "C"
+      },
+      {
+        q: "Which is a sign of poor financial health?",
+        a: ["Paying credit cards in full", "Having emergency fund", "Living paycheck to paycheck", "Investing early"],
+        correct: "C"
+      }
+      // Add more questions as needed
+    ];
+
+    window.onload = () => {
+      const form = document.getElementById("quizForm");
+      questions.forEach((item, index) => {
+        const num = index + 1;
+        const div = document.createElement("div");
+        div.classList.add("question");
+        div.innerHTML = `<p>${num}. ${item.q}</p>` +
+          item.a.map((opt, i) => {
+            const letter = String.fromCharCode(65 + i);
+            return `<label><input type="radio" name="q${num}" value="${letter}"> ${letter}. ${opt}</label>`;
+          }).join("");
+        form.appendChild(div);
+      });
+    };
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const qname = `q${index + 1}`;
+        const selected = document.querySelector(`input[name="${qname}"]:checked`);
+        if (selected && selected.value === item.correct) {
+          score++;
+        }
+      });
+      document.getElementById("result").innerHTML = `You scored ${score} out of ${questions.length}`;
+    }
+  </script>
+</body>
+</html>
